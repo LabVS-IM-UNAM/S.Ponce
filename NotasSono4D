@@ -20,7 +20,8 @@ FIGURAS CAMBIAN CON SONIDOS /// 4-Politopos Regulares (id) {=R3} [caras/celdas]
 Motor: Python
 Librerías:
   - numpy (operación matemática)
-  - matplotlib (gráficos 3D)
+  - matplotlib (gráficos 3D) {a}
+  - mayavi (gráficos 3D) {b}
   - pyvista (visualización compleja) {a}
   - vtk (visualización compleja) {b}
   - manim (visualización animada avanzada{?})
