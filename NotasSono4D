@@ -1,0 +1,27 @@
+Lugar: Centro de Cultura Digital (Estela de Luz/Chapultepec)
+Proyecto: Instalación Sonora Interactiva
+TouchDesigner [Azalea]:
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Materiales: Micrófonos, Bocinas (Sonido envolvente 5.1/7.1/9.1/11.1.), Arduinos (?), Pantallas Digitales (Sólidos Platónicos 4D)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Interacciones Auditivas:
+-Micrófono (al centro de la instalación): recibe los sonidos de los usuarios.
+-Bocinas: Replican el audio, transportándo su oriígen en espiral alredodr de la sala, conforme da vueltas va subiendo su posición y aumentando la reverberración hasta desaparecer.
+-Arduino: Toma el audio del micrófono, lo altera con reverberación y lo distribuye por las bocinas. Acorde al audio modifica el código de las figuras que manda a las pantallas.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+FIGURAS CAMBIAN CON SONIDOS /// 4-Politopos Regulares (id) {=R3} [caras/celdas]
+  - 5-celda (pentatopo) {tetraedro} [tetraédricas/5]
+  - 8-celda (teseracto/hipercubo) {cubo} [cúbicas/8]
+  - 16-celda (hexadecacoro) {DUAL teseracto} [tetraédricas/16]
+  - 24-celda (/) {!R4} [octaédricas/24]
+  - 120-celda (hiperdodecaedro) {dodecaedro} [dodecaédricas/120]
+  - 600-celda (hipericosaedro) {icosaedro} [tetraédricas/600]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Motor: Python
+Librerías:
+  - numpy (operación matemática)
+  - matplotlib (gráficos 3D)
+  - pyvista (visualización compleja) {a}
+  - vtk (visualización compleja) {b}
+  - manim (visualización animada avanzada{?})
+ 
