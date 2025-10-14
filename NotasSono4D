@@ -21,7 +21,7 @@ Motor: Python
 Librerías:
   - numpy (operación matemática)
   - itertools (permutations, product, combinations) [Manejo de objetos ordenados]
-  - SageMath/polytopes (info de las figuras {?})  [DARIO]
+  - SageMath/polytopes (info de las figuras {?})  [DARIO] ABARCA MAS QUE PYTHON///COMENZAR DESDE AQUI
   - matplotlib (gráficos 3D) {a} [DARIO]
   - mayavi (gráficos 3D) {b}
   - pyvista (visualización compleja) {a}
