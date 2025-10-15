@@ -10,12 +10,12 @@ Interacciones Auditivas:
 -Arduino: Toma el audio del micrófono, lo altera con reverberación y lo distribuye por las bocinas. Acorde al audio modifica el código de las figuras que manda a las pantallas.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 FIGURAS CAMBIAN CON SONIDOS /// 4-Politopos Regulares (id) {=R3} [caras/celdas]
-  - 5-celda (pentatopo) {tetraedro} [tetraédricas/5]
-  - 8-celda (teseracto/hipercubo) {cubo} [cúbicas/8]
-  - 16-celda (hexadecacoro) {DUAL teseracto} [tetraédricas/16]
-  - 24-celda (/) {!R4} [octaédricas/24]
-  - 120-celda (hiperdodecaedro) {dodecaedro} [dodecaédricas/120]
-  - 600-celda (hipericosaedro) {icosaedro} [tetraédricas/600]
+  - 5-celda (pentatopo) {tetraedro} [tetraédricas/5] sage: "polytopes.simplex(4)"
+  - 8-celda (teseracto/hipercubo) {cubo} [cúbicas/8] sage: "polytopes.hypercube(4)"
+  - 16-celda (hexadecacoro) {DUAL teseracto} [tetraédricas/16] sage: "polytopes.cross_polytope(4)"
+  - 24-celda (/) {!R4} [octaédricas/24] sage: "polytopes.twenty_four_cell()"
+  - 120-celda (hiperdodecaedro) {dodecaedro} [dodecaédricas/120] sage: "polytopes.one_hundred_twenty_cell()"
+  - 600-celda (hipericosaedro) {icosaedro} [tetraédricas/600] sage: "polytopes.six_hundred_cell()"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Motor: Python
 Librerías:
