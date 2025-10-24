@@ -29,4 +29,7 @@ print(edges)
 
 #CAMBIO DE MOTOR DE VISUALIZACIÓN (VisPy en lugar de PyVista)
 #VisPy opera con OpenGL (ESTO SERVIRA PARA MANEJAR MEJOR LAS IMÁGENES CON MAYOR DETALLE Y EFICIENCIA)
-#Otro proyecto del servicio cuenta con la recomendación de utulizar la herramienta de OpenGl
+#Otro proyecto del servicio cuenta con la recomendación de utulizar la herramienta de OpenGL
+#La recomendación de OpenGL para el otro proyecto NO es adecuada
+#El otro proyecto requiere de el uso de OpenCV
+#De igual manera la mejor opción para mostrar los gráficos esperados es OpenGL

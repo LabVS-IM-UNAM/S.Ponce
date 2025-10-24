@@ -1,0 +1,27 @@
+1- Ingresar a https://cocalc.com/
+2- Navegar al apartado de "Proyectos"
+3- Crear nuevo proyecto
+4- Crear o subir archivos
+5- Sage Math Notebook
+6- Una vez cargado el nuevo cuaderno, en el centro de la pantalla aparecerá un recuadro para ingresar texto. Ahí pegarás el código para mostrar la figura que deseas analizar:
+========================================================================================================================================================================================================================================================================================================================================================================================================================
+P = _______________________
+P.plot()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Intercambiarás los guiones bajos por el código que depende de cada figura (mostrado entre comillas, NO poner las comillas y respetar los puntos y paréntesis), puedes guiarte por las descripciones (nombre alternativo) {semejante en 3 dimensiones} [forma de las caras/celdas]:
+
+	- 5-celda (pentatopo) {tetraedro} [tetraédricas/5] sage: "polytopes.simplex(4)"
+
+	- 8-celda (teseracto/hipercubo) {cubo} [cúbicas/8] sage: "polytopes.hypercube(4)"
+
+	- 16-celda (hexadecacoro) {DUAL teseracto} [tetraédricas/16] sage: "polytopes.cross_polytope(4)"
+	
+	- 24-celda (/) {!R4} [octaédricas/24] sage: "polytopes.twenty_four_cell()"
+
+	- 120-celda (hiperdodecaedro) {dodecaedro} [dodecaédricas/120] sage: "polytopes.one_hundred_twenty_cell()"
+	
+	- 600-celda (hipericosaedro) {icosaedro} [tetraédricas/600] sage: "polytopes.six_hundred_cell()"
+========================================================================================================================================================================================================================================================================================================================================================================================================================
+
+7- Presiona ">Run" en el borde inferior del recuadro donde pusiste el código y espera a que cargue la figura.
+
