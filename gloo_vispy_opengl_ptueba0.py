@@ -10,20 +10,39 @@ import sys
 #To access system-specific variables and functions, allowing interaction with the Python interpreter and the operating system.
 from vispy import app, gloo
 
-canvas = app.Canvas(keys='interactive')
-#Object representing the overall space where our visualization will take place.
 
-@canvas.connect
-#decorator method to attach this method to any “draw” events coming from the canvas. When using this technique the function must be named on_<event>
-def on_draw(event):
-#function telling OpenGL to fill the Canvas with a specific RGBA
+    #[OPTION 1] Short, one-off visualizations where you don’t need to reuse or extend behavior
+    #NOT OPTIMAL FOR OUR PROYECT
+#canvas = app.Canvas(keys='interactive')
+    #Object representing the overall space where our visualization will take place.
+
+#@canvas.connect
+    #[decorator method to attach this method to any “draw” events coming from the canvas. When using this technique the function must be named on_<event>]
+#def on_draw(event):
+    #[function telling OpenGL to fill the Canvas with a specific RGBA]
     #gloo.set_clear_color((0.2, 0.4, 0.6, 1.0)) #Azul Claro (Ejemplo)
-    gloo.set_clear_color((1, 0, 0.517, 1.0)) #Rosa Mexicano (255,0,132,0.7)
-    gloo.clear()
+    #gloo.set_clear_color((1, 0, 0.517, 1.0)) #Rosa Mexicano (255,0,132,0.7)
+    #gloo.clear()
 
 
+#canvas.show()
+    #display the Canvas object on the screen, talking to the underlying GUI backend (PyQt6) to construct a native GUI “widget” with our OpenGL visualization inside.
+
+
+
+
+#[OPTION 2] Better for building an interactive visualization app wich need to store frame count, mouse position, or shader data; interactive
+class MyCanvas(app.Canvas):
+    #subclass the Canvas class and override the necessary methods directly. 
+    def on_draw(self, event):
+        gloo.set_clear_color((0.2, 0.4, 0.6, 1.0))
+        gloo.clear()
+
+
+canvas = MyCanvas(keys='interactive')
 canvas.show()
-#display the Canvas object on the screen, talking to the underlying GUI backend (PyQt6) to construct a native GUI “widget” with our OpenGL visualization inside.
+
+#Start with [1] for experiments; switch to [2] as soon as you need more structure or state.
 
 if __name__ == '__main__' and sys.flags.interactive == 0:
 #The if statement here is a common occurrence in VisPy example scripts so that the Application is only started when the code is run as a script (instead of imported). This also helps with more advanced usage where we run this script in an interactive Python interpreter.
