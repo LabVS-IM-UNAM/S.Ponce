@@ -31,16 +31,32 @@ class Canvas(app.Canvas):
                          keys='interactive')
 
         # Build program (defining an OpenGL Program which expects two shaders, simplest case)
-        self.program = Program(vertex, fragment, count=5)
+        self.program = Program(vertex, fragment, count=7)
 
         # Set uniforms and attributes (used by the shaders)
-        self.program['color'] = [(1, 0, 0, 1), (0, 1, 0, 1),
-                                 (0, 0, 1, 1), (1, 1, 0, 1), (1, 0, 1, 1)]
-        self.program['position'] = [(0, +1), (+0.951, +.3090),
-                                    (+.587, -.809), (-.587, -.809), (-.951, +.309)]
+        self.program['color'] = [
+                                (1, 1, 1, .1),     # center
+                                (1, 0, 0, 1),
+                                (0, 1, 0, 1),
+                                (0, 0, 1, 1),
+                                (1, 1, 0, 1),
+                                (1, 0, 1, 1),
+                                (1, 0, 0, 1)      # same as first outer vertex
+                                ]
+                                
+        self.program['position'] = [
+                                    (0, 0), #center
+                                    (0, +1),
+                                    (+0.951, +.3090),
+                                    (+.587, -.809),
+                                    (-.587, -.809),
+                                    (-.951, +.309),
+                                    (0, +1)               # repeat first outer vertex to close fan
+                                    ]
 
         self.program['theta'] = 0.0
         #angle? unifrom
+        self.rotation_dir = 1  # +1 for normal, -1 for reverse
 
         gloo.set_viewport(0, 0, *self.physical_size)
         gloo.set_clear_color('white')
@@ -65,7 +81,7 @@ class Canvas(app.Canvas):
     #Event for when the user resizes the Graphical User Interface window we can update the size of the OpenGL canvas (viewport).
 
     def on_timer(self, event):
-        self.clock += 0.001 * 1000.0 / 60.
+        self.clock += self.rotation_dir*(0.001 * 1000.0 / 60)
         #updating our special clock counter variable
         self.program['theta'] = self.clock
         self.update()
@@ -75,8 +91,15 @@ class Canvas(app.Canvas):
         if event.text == ' ':
             if self.timer.running:
                 self.timer.stop()
+                print("PAUSE")
             else:
                 self.timer.start()
+                print("PLAY")
+
+        elif event.text == 'r':
+            # Reverse direction
+            self.rotation_dir *= -1
+            print("Rotation reversed!")
 
 if __name__ == '__main__':
     c = Canvas()
