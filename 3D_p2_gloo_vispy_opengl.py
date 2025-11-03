@@ -32,29 +32,36 @@ fragment = """
 # ==================== CANVAS ====================
 class Canvas(app.Canvas):
     def __init__(self):
-        super().__init__(size=(700, 700), title='3D Cube', keys='interactive')
+        super().__init__(size=(700, 700), title='3D Octa', keys='interactive')
         
         #VERTICES
         vertices = np.array([
-                            [-1, -1, -1],  # 0: frente, abajo, izquierda
-                            [+1, -1, -1],  # 1: frente, abajo, derecha
-                            [-1, +1, -1],  # 2: frente, arriba, izquierda
-                            [+1, +1, -1],  # 3: frente, arriba, derecha
-                            [-1, -1, +1],  # 4: atrás, abajo, izquierda
-                            [+1, -1, +1],  # 5: atrás, abajo, derecha
-                            [-1, +1, +1],  # 6: atrás, arriba, izquierda
-                            [+1, +1, +1],  # 7: atrás, arriba, derecha
+                            [ 0,  +1 / np.sqrt(2),  0],  # V0
+                            [ 0, -1 / np.sqrt(2),  0],  # V1
+                            [ +1 / np.sqrt(2),  0,  0],  # V2
+                            [-1 / np.sqrt(2),  0,  0],  # V3
+                            [ 0,  0, +1 / np.sqrt(2)],  # V4
+                            [ 0,  0, -1 / np.sqrt(2)]   # V5
                         ], dtype=np.float32)
 
         #EDGES-INDICES
         edges = np.array([
-            0, 1, 0, 2, 1, 3, 2, 3,
-            4, 5, 4, 6, 5, 7, 6, 7,
-            0, 4, 1, 5, 2, 6, 3, 7
-        ], dtype=np.uint32)
+                        0, 2, 
+                        0, 3, 
+                        0, 4, 
+                        0, 5,
+                        1, 2, 
+                        1, 3, 
+                        1, 4, 
+                        1, 5,
+                        2, 4, 
+                        2, 5,
+                        3, 4, 
+                        3, 5
+                    ], dtype=np.uint32)
 
         # COLORS
-        colors = np.ones((8, 4), dtype=np.float32)
+        colors = np.ones((6, 4), dtype=np.float32)
 
         #DEFINE PROGRAM VARIABLES
         self.program = Program(vertex, fragment)
@@ -116,9 +123,9 @@ class Canvas(app.Canvas):
         #ZOOM
         elif event.text == 'i':  # zoom in 
             #self.camera_z += 1.0
-            self.camera_z = min(self.camera_z + 1.0, -1.0)  #NO MORE THAN -1
+            self.camera_z = min(self.camera_z + 1.0, -3.0)  #NO MORE THAN -1
         elif event.text == 'o':  # zoom out
-            self.camera_z = max(self.camera_z - 1.0, -50.0)  #NOT LESS THAN -50
+            self.camera_z = max(self.camera_z - 1.0, -33.0)  #NOT LESS THAN -50
         
         #UPDATE IF ROTATION
         if event.text in ('w', 's', 'a', 'd', 'q', 'e'):

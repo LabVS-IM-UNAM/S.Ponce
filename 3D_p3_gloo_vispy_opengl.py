@@ -32,35 +32,37 @@ fragment = """
 # ==================== CANVAS ====================
 class Canvas(app.Canvas):
     def __init__(self):
-        super().__init__(size=(700, 700), title='3D Cube', keys='interactive')
+        super().__init__(size=(700, 700), title='3D Dodeca', keys='interactive')
         
         #VERTICES
-        vertices = np.array([
-                            [-1, -1, -1],  # 0: frente, abajo, izquierda
-                            [+1, -1, -1],  # 1: frente, abajo, derecha
-                            [-1, +1, -1],  # 2: frente, arriba, izquierda
-                            [+1, +1, -1],  # 3: frente, arriba, derecha
-                            [-1, -1, +1],  # 4: atrás, abajo, izquierda
-                            [+1, -1, +1],  # 5: atrás, abajo, derecha
-                            [-1, +1, +1],  # 6: atrás, arriba, izquierda
-                            [+1, +1, +1],  # 7: atrás, arriba, derecha
-                        ], dtype=np.float32)
+        phi = 1.618 #Golden ratio
+        inv_phi = 0.618 #Inverse Golden ratio
 
+        vertices = np.array([
+            # Even permutations of (0, ±1/φ, ±φ)
+            [0, inv_phi, phi], [0, inv_phi, -phi], [0, -inv_phi, phi], [0, -inv_phi, -phi],
+            [inv_phi, phi, 0], [-inv_phi, phi, 0], [inv_phi, -phi, 0], [-inv_phi, -phi, 0],
+            [phi, 0, inv_phi], [-phi, 0, inv_phi], [phi, 0, -inv_phi], [-phi, 0, -inv_phi],
+            # Even permutations of (±1, ±1, ±1)
+            [1, 1, 1], [1, 1, -1], [1, -1, 1], [1, -1, -1],
+            [-1, 1, 1], [-1, 1, -1], [-1, -1, 1], [-1, -1, -1]
+        ], dtype=np.float32)
+
+        
         #EDGES-INDICES
-        edges = np.array([
-            0, 1, 0, 2, 1, 3, 2, 3,
-            4, 5, 4, 6, 5, 7, 6, 7,
-            0, 4, 1, 5, 2, 6, 3, 7
-        ], dtype=np.uint32)
+        # Compute edges by connecting nearest neighbors
+        edges = np.array([(0, 2), (0, 12), (0, 16), (1, 3), (1, 13), (1, 17), (2, 14), (2, 18), (3, 15), (3, 19), (4, 5), (4, 12), (4, 13), (5, 16), (5, 17), (6, 7), (6, 14), (6, 15), (7, 18), (7, 19), (8, 10), (8, 12), (8, 14), (9, 11), (9, 16), (9, 18), (10, 13), (10, 15), (11, 17), (11, 19)])
+
+        flattened_edges = edges.flatten().tolist()
 
         # COLORS
-        colors = np.ones((8, 4), dtype=np.float32)
+        colors = np.ones((20, 4), dtype=np.float32)
 
         #DEFINE PROGRAM VARIABLES
         self.program = Program(vertex, fragment)
         self.program['position'] = VertexBuffer(vertices)
         self.program['color'] = VertexBuffer(colors)
-        self.indices = IndexBuffer(edges)
+        self.indices = IndexBuffer(flattened_edges)
 
         #rotation variables
         self.alpha = 0
@@ -116,9 +118,9 @@ class Canvas(app.Canvas):
         #ZOOM
         elif event.text == 'i':  # zoom in 
             #self.camera_z += 1.0
-            self.camera_z = min(self.camera_z + 1.0, -1.0)  #NO MORE THAN -1
+            self.camera_z = min(self.camera_z + 1.0, -3.0)  #NO MORE THAN -1
         elif event.text == 'o':  # zoom out
-            self.camera_z = max(self.camera_z - 1.0, -50.0)  #NOT LESS THAN -50
+            self.camera_z = max(self.camera_z - 1.0, -33.0)  #NOT LESS THAN -50
         
         #UPDATE IF ROTATION
         if event.text in ('w', 's', 'a', 'd', 'q', 'e'):
