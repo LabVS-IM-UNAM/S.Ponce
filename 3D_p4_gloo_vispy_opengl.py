@@ -32,42 +32,42 @@ fragment = """
 # ==================== CANVAS ====================
 class Canvas(app.Canvas):
     def __init__(self):
-        super().__init__(size=(700, 700), title='3D Octa', keys='interactive')
+        super().__init__(size=(700, 700), title='3D Dodeca', keys='interactive')
         
         #VERTICES
+        phi = (1 + np.sqrt(5)) / 2       # número áureo
+        s = phi / 2                      # factor de escala para arista = 1
+
         vertices = np.array([
-                            [ 0,  +1 / np.sqrt(2),  0],  # V0
-                            [ 0, -1 / np.sqrt(2),  0],  # V1
-                            [ +1 / np.sqrt(2),  0,  0],  # V2
-                            [-1 / np.sqrt(2),  0,  0],  # V3
-                            [ 0,  0, +1 / np.sqrt(2)],  # V4
-                            [ 0,  0, -1 / np.sqrt(2)]   # V5
+                            [0,  s,  s*phi],
+                            [0, -s,  s*phi],
+                            [0,  s, -s*phi],
+                            [0, -s, -s*phi],
+                            [ s,  s*phi, 0],
+                            [-s,  s*phi, 0],
+                            [ s, -s*phi, 0],
+                            [-s, -s*phi, 0],
+                            [ s*phi, 0,  s],
+                            [-s*phi, 0,  s],
+                            [ s*phi, 0, -s],
+                            [-s*phi, 0, -s]
                         ], dtype=np.float32)
 
+        
         #EDGES-INDICES
-        edges = np.array([
-                        0, 2, 
-                        0, 3, 
-                        0, 4, 
-                        0, 5,
-                        1, 2, 
-                        1, 3, 
-                        1, 4, 
-                        1, 5,
-                        2, 4, 
-                        2, 5,
-                        3, 4, 
-                        3, 5
-                    ], dtype=np.uint32)
+        # Compute edges by connecting nearest neighbors
+        edges = np.array([(0, 1), (0, 4), (0, 5), (0, 8), (0, 9), (1, 6), (1, 7), (1, 8), (1, 9), (2, 3), (2, 4), (2, 5), (2, 10), (2, 11), (3, 6), (3, 7), (3, 10), (3, 11), (4, 5), (4, 8), (4, 10), (5, 9), (5, 11), (6, 7), (6, 8), (6, 10), (7, 9), (7, 11), (8, 10), (9, 11)])
+
+        flattened_edges = edges.flatten().tolist()
 
         # COLORS
-        colors = np.ones((6, 4), dtype=np.float32)
+        colors = np.ones((12, 4), dtype=np.float32)
 
         #DEFINE PROGRAM VARIABLES
         self.program = Program(vertex, fragment)
         self.program['position'] = VertexBuffer(vertices)
         self.program['color'] = VertexBuffer(colors)
-        self.indices = IndexBuffer(edges)
+        self.indices = IndexBuffer(flattened_edges)
 
         #rotation variables
         self.alpha = 0

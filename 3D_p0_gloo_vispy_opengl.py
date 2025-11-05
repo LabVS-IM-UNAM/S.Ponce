@@ -93,6 +93,7 @@ class Canvas(app.Canvas):
     def on_resize(self, event):
         gloo.set_viewport(0, 0, *event.physical_size)
 
+    #=======KEYPRESS EVENTS========
     def on_key_press(self, event):
         #ROTATE
         if event.text == 'w':
@@ -102,29 +103,29 @@ class Canvas(app.Canvas):
             self.alpha -= 15
 
         elif event.text == 'a':
-            self.beta += 15
-        
-        elif event.text == 'd':
             self.beta -= 15
         
+        elif event.text == 'd':
+            self.beta += 15
+        
         elif event.text == 'q':
-            self.gamma += 15
+            self.gamma -= 15
         
         elif event.text == 'e':
-            self.gamma -= 15
+            self.gamma += 15
 
         #ZOOM
         elif event.text == 'i':  # zoom in 
             #self.camera_z += 1.0
-            self.camera_z = min(self.camera_z + 1.0, -1.0)  #NO MORE THAN -1
+            self.camera_z = min(self.camera_z + 1.0, -3.0)  #NO MORE THAN -1
         elif event.text == 'o':  # zoom out
-            self.camera_z = max(self.camera_z - 1.0, -50.0)  #NOT LESS THAN -50
+            self.camera_z = max(self.camera_z - 1.0, -33.0)  #NOT LESS THAN -50
         
         #UPDATE IF ROTATION
         if event.text in ('w', 's', 'a', 'd', 'q', 'e'):
             model = np.eye(4, dtype=np.float32)
-            model = rotate(self.alpha, (0, 1, 0)) @ model
-            model = rotate(self.beta, (1, 0, 0)) @ model
+            model = rotate(self.alpha, (1, 0, 0)) @ model
+            model = rotate(self.beta, (0, 1, 0)) @ model
             model = rotate(self.gamma, (0, 0, 1)) @ model
             self.program['model'] = model
 

@@ -2,17 +2,22 @@ import numpy as np
 from scipy.spatial.distance import pdist, squareform
 
 # VERTICES
-phi = 1.618  # Golden ratio
-inv_phi = 0.618  # Inverse Golden ratio
+phi = (1 + np.sqrt(5)) / 2       # número áureo
+s = phi / 2                      # factor de escala para arista = 1
 
 vertices = np.array([
-    # Even permutations of (0, ±1/φ, ±φ)
-    [0, inv_phi, phi], [0, inv_phi, -phi], [0, -inv_phi, phi], [0, -inv_phi, -phi],
-    [inv_phi, phi, 0], [-inv_phi, phi, 0], [inv_phi, -phi, 0], [-inv_phi, -phi, 0],
-    [phi, 0, inv_phi], [-phi, 0, inv_phi], [phi, 0, -inv_phi], [-phi, 0, -inv_phi],
-    # Even permutations of (±1, ±1, ±1)
-    [1, 1, 1], [1, 1, -1], [1, -1, 1], [1, -1, -1],
-    [-1, 1, 1], [-1, 1, -1], [-1, -1, 1], [-1, -1, -1]
+    [0,  s,  s*phi],
+    [0, -s,  s*phi],
+    [0,  s, -s*phi],
+    [0, -s, -s*phi],
+    [ s,  s*phi, 0],
+    [-s,  s*phi, 0],
+    [ s, -s*phi, 0],
+    [-s, -s*phi, 0],
+    [ s*phi, 0,  s],
+    [-s*phi, 0,  s],
+    [ s*phi, 0, -s],
+    [-s*phi, 0, -s]
 ], dtype=np.float64)
 
 # Calcular distancias

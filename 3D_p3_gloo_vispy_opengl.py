@@ -104,16 +104,16 @@ class Canvas(app.Canvas):
             self.alpha -= 15
 
         elif event.text == 'a':
-            self.beta += 15
-        
-        elif event.text == 'd':
             self.beta -= 15
         
+        elif event.text == 'd':
+            self.beta += 15
+        
         elif event.text == 'q':
-            self.gamma += 15
+            self.gamma -= 15
         
         elif event.text == 'e':
-            self.gamma -= 15
+            self.gamma += 15
 
         #ZOOM
         elif event.text == 'i':  # zoom in 
@@ -125,8 +125,8 @@ class Canvas(app.Canvas):
         #UPDATE IF ROTATION
         if event.text in ('w', 's', 'a', 'd', 'q', 'e'):
             model = np.eye(4, dtype=np.float32)
-            model = rotate(self.alpha, (0, 1, 0)) @ model
-            model = rotate(self.beta, (1, 0, 0)) @ model
+            model = rotate(self.alpha, (1, 0, 0)) @ model
+            model = rotate(self.beta, (0, 1, 0)) @ model
             model = rotate(self.gamma, (0, 0, 1)) @ model
             self.program['model'] = model
 

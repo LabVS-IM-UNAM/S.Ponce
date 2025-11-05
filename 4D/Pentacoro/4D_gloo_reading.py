@@ -2,6 +2,12 @@ from vispy import app, gloo
 from vispy.gloo import Program, VertexBuffer, IndexBuffer
 from vispy.util.transforms import perspective, translate, rotate
 import numpy as np
+import json
+
+# =================== READ DATA ===================
+with open('pentachoron_4d_7.json', 'r') as f:
+    data = json.load(f)
+#INGRESADOS MANUALMENTE (TETRAEDRO + ORIGEN ; TODAS LAS ARISTAS POSIBLES)
 
 # ==================== SHADERS ====================
 vertex = """
@@ -32,42 +38,25 @@ fragment = """
 # ==================== CANVAS ====================
 class Canvas(app.Canvas):
     def __init__(self):
-        super().__init__(size=(700, 700), title='3D Octa', keys='interactive')
+        super().__init__(size=(700, 700), title='4D Pentacoron', keys='interactive')
         
         #VERTICES
-        vertices = np.array([
-                            [ 0,  +1 / np.sqrt(2),  0],  # V0
-                            [ 0, -1 / np.sqrt(2),  0],  # V1
-                            [ +1 / np.sqrt(2),  0,  0],  # V2
-                            [-1 / np.sqrt(2),  0,  0],  # V3
-                            [ 0,  0, +1 / np.sqrt(2)],  # V4
-                            [ 0,  0, -1 / np.sqrt(2)]   # V5
-                        ], dtype=np.float32)
+        vertices = np.array(data['vertices_3d'], dtype=np.float32)
 
+        
         #EDGES-INDICES
-        edges = np.array([
-                        0, 2, 
-                        0, 3, 
-                        0, 4, 
-                        0, 5,
-                        1, 2, 
-                        1, 3, 
-                        1, 4, 
-                        1, 5,
-                        2, 4, 
-                        2, 5,
-                        3, 4, 
-                        3, 5
-                    ], dtype=np.uint32)
+        edges = np.array(data['edges'], dtype=np.uint32)
+
+        flattened_edges = edges.flatten().tolist()
 
         # COLORS
-        colors = np.ones((6, 4), dtype=np.float32)
+        colors = np.ones((5, 4), dtype=np.float32)
 
         #DEFINE PROGRAM VARIABLES
         self.program = Program(vertex, fragment)
         self.program['position'] = VertexBuffer(vertices)
         self.program['color'] = VertexBuffer(colors)
-        self.indices = IndexBuffer(edges)
+        self.indices = IndexBuffer(flattened_edges)
 
         #rotation variables
         self.alpha = 0
