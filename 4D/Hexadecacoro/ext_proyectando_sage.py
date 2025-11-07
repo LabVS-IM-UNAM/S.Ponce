@@ -2,29 +2,61 @@ from sage.all import *
 import numpy as np
 import json
 
-#4D Figura
+#4D Figure
 P = polytopes.cross_polytope(4)
-sage_vertices_4d = [v.vector() for v in P.vertices()]
 
-# === Proyección 4D → 3D ===
-# Get 3D Schlegel projection (affine image in ℝ³)
-# This is a 3D polyhedron: use its vertices directly
-P3 = P.schlegel_projection()
-sage_vertices_3d = [v.vector() for v in P3.vertices()]
-
+# --- 4D vertices as tuples (immutable)
+sage_vertices_4d = [tuple(v) for v in P.vertices()]
+vertex_to_index = {v: i for i, v in enumerate(sage_vertices_4d)}
 vertices_4d = np.array(sage_vertices_4d, dtype=np.float64)
-vertices_3d = np.array(sage_vertices_3d, dtype=np.float64)
-# Step 4: Center (optional)
-#vertices_3d -= vertices_3d.mean(axis=0)
 
-#Indexar vértices (funcion)
-vertex_to_index = {v: i for i, v in enumerate(sage_vertices_4d)}   
+# --- Manual Schlegel projection from 4D -> 3D ---
+    #A Schlegel diagram is a projection of a d-dimensional polytope into (d−1)-dimensional space, done via perspective projection from a point just outside one of its facets (faces of dimension d−1).
+# Choose a facet: one with max x4 = 1 (you can pick any)
+facet = P.facets()[0]
+    #Choose the first of the 3D facets
+ineq = facet.ambient_Hrepresentation()[0]
+    #Take that first inequality, the one that defines the hyperplane corresponding to the facet face
+    #A⋅x <= b
+        #A:=normal vector of that face (perpendicular to the face)
+        #b:=distance from origin
+normal_4d = np.array(ineq.A(), dtype=float).flatten()
+offset = float(ineq.b())
+    #define for further use into formulas
+
+# --- Choose a projection point just outside that facet ---
+projection_point = 1.1 * normal_4d / np.linalg.norm(normal_4d)
+
+# --- Project each vertex from 4D → 3D ---
+vertices_3d = []
+for v in vertices_4d:
+    direction = v - projection_point
+    denom = np.dot(normal_4d, direction)
+    if abs(denom) < 1e-12:
+        # vertex lies in or parallel to the facet plane; skip or copy directly
+        x_proj = v
+    else:
+        t = (offset - np.dot(normal_4d, projection_point)) / denom
+        x_proj = projection_point + t * direction
+    vertices_3d.append(x_proj[:-1])  # drop 4th coordinate → 3D
+
+vertices_3d = np.array(vertices_3d, dtype=np.float64)
+
+# --- Center 3D figure at origin ---
+center = vertices_3d.mean(axis=0)
+vertices_3d -= center
+
+#scaled to unit radius
+vertices_3d /= np.linalg.norm(vertices_3d, axis=1).max()
 
 #Gráfica plana de la figura (vértices y aristas) [1-skeleton graph]
 G = P.graph()
 
 # Lista de aristas (parejas de  vértices conectadas)
-edges = [(vertex_to_index[u], vertex_to_index[v]) for u, v, _ in G.edges()]
+edges = [
+    (vertex_to_index[tuple(u)], vertex_to_index[tuple(v)])
+    for u, v, _ in G.edges()
+]
 
 
 
@@ -36,7 +68,7 @@ data = {
 }
 
 # Guardar en archivo JSONx
-with open('hexadecacoro_4d_sage_extract.json', 'w') as f:
+with open('hexadecacoro_4d_sage_extract_9.json', 'w') as f:
     json.dump(data, f, indent=2)
 
 #Prueba de resultados
