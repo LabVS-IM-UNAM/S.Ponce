@@ -5,7 +5,7 @@ import numpy as np
 import json
 
 # =================== READ DATA ===================
-with open('hexadecacoro_4d_sage_extract_9.json', 'r') as f:
+with open('hexadecacoro_4d_sage_extract_sch_5.json', 'r') as f:
     data = json.load(f)
 
 # ==================== SHADERS ====================

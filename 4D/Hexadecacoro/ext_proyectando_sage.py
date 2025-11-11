@@ -24,18 +24,27 @@ normal_4d = np.array(ineq.A(), dtype=float).flatten()
 offset = float(ineq.b())
     #define for further use into formulas
 
-# --- Choose a projection point just outside that facet ---
-projection_point = 1.1 * normal_4d / np.linalg.norm(normal_4d)
+# --- Choose a projection point just outside that facet [normalizing the normal vector that defines the facet]
+    #Scaling it to position the view, 10% beyond the polytope surface along that normal direction.
+    #This is our "CAMERA" or "projection eye point"
+projection_point = 1.5 * normal_4d / np.linalg.norm(normal_4d)
 
 # --- Project each vertex from 4D → 3D ---
 vertices_3d = []
 for v in vertices_4d:
     direction = v - projection_point
+    #4D direction vector along which we’ll trace the line from the projection point toward the vertex.
+
     denom = np.dot(normal_4d, direction)
-    if abs(denom) < 1e-12:
-        # vertex lies in or parallel to the facet plane; skip or copy directly
+    #dot product to find the scalar projection (length of a vector's shadow on another)
+
+    if abs(denom) < 1e-11: #one trillionth of one
+        # vertex lies in or parallel to the facet plane; skip or copy directly (projects into itself or really close to it)
         x_proj = v
     else:
+        #Take the line form "v" to the point where it crosses the facet by:
+            #Defining the line under the PARAMETRIC DEFINITION of "l={P + tD | t  in R(#)} with P the projection point which it passes by and D direction vector"
+            #Substitute inside "A ⋅ x = b" to obtain "t"
         t = (offset - np.dot(normal_4d, projection_point)) / denom
         x_proj = projection_point + t * direction
     vertices_3d.append(x_proj[:-1])  # drop 4th coordinate → 3D
@@ -43,11 +52,11 @@ for v in vertices_4d:
 vertices_3d = np.array(vertices_3d, dtype=np.float64)
 
 # --- Center 3D figure at origin ---
-center = vertices_3d.mean(axis=0)
-vertices_3d -= center
+#center = vertices_3d.mean(axis=0)
+#vertices_3d -= center
 
 #scaled to unit radius
-vertices_3d /= np.linalg.norm(vertices_3d, axis=1).max()
+#vertices_3d /= np.linalg.norm(vertices_3d, axis=1).max()
 
 #Gráfica plana de la figura (vértices y aristas) [1-skeleton graph]
 G = P.graph()
@@ -68,7 +77,7 @@ data = {
 }
 
 # Guardar en archivo JSONx
-with open('hexadecacoro_4d_sage_extract_9.json', 'w') as f:
+with open('hexadecacoro_4d_sage_extract_15.json', 'w') as f:
     json.dump(data, f, indent=2)
 
 #Prueba de resultados
