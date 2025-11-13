@@ -4,7 +4,7 @@ import numpy as np
 import json
 
 #4D Figure
-P = polytopes.cross_polytope(4)
+P = polytopes.twenty_four_cell()
 
 # --- 4D vertices
 sage_vertices_4d = [tuple(v) for v in P.vertices()]
@@ -107,7 +107,7 @@ data = {
 }
 
 # Guardar en archivo JSONx
-with open('hexadecacoro_4d_sage_extract_sch_7.json', 'w') as f:
+with open('icositetracoron_sage.json', 'w') as f:
     json.dump(data, f, indent=2)
 
 #Prueba de resultados
