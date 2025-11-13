@@ -5,7 +5,7 @@ import numpy as np
 import json
 
 # =================== READ DATA ===================
-with open('icositetracoron_sage.json', 'r') as f:
+with open('hexacosicoron_sage.json', 'r') as f:
     data = json.load(f)
 
 # ==================== SHADERS ====================
@@ -37,7 +37,7 @@ fragment = """
 # ==================== CANVAS ====================
 class Canvas(app.Canvas):
     def __init__(self):
-        super().__init__(size=(700, 700), title='4D Icositetracoron', keys='interactive')
+        super().__init__(size=(700, 700), title='4D Hexacosicoron', keys='interactive')
         
         #VERTICES
         vertices = np.array(data['vertices_3d'], dtype=np.float32)
@@ -49,7 +49,7 @@ class Canvas(app.Canvas):
         flattened_edges = edges.flatten().tolist()
 
         # COLORS
-        colors = np.ones((24, 4), dtype=np.float32)
+        colors = np.ones((120, 4), dtype=np.float32)
 
         #DEFINE PROGRAM VARIABLES
         self.program = Program(vertex, fragment)

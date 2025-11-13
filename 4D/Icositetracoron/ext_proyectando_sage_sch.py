@@ -65,7 +65,7 @@ for v in vertices_4d:
 
 projected_4d = np.array(np.round(projected_4d,3))
 
-# --- ✅ CRITICAL FIX: Map hyperplane to ℝ³ properly ---
+# --- Map hyperplane to ℝ³ properly ---
 # Pick a reference point on the hyperplane; the closest point from the origin to the hyperplane [x = (b/(|n|^2)) ⋅ n]
 x0 = (offset / (normal_4d @ normal_4d)) * normal_4d
 

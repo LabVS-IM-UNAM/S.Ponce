@@ -38,7 +38,7 @@ fragment = """
 # ==================== CANVAS ====================
 class Canvas(app.Canvas):
     def __init__(self):
-        super().__init__(size=(700, 700), title='4D Pentacoron', keys='interactive')
+        super().__init__(size=(700, 700), title='4D Pentacoro', keys='interactive')
         
         #VERTICES
         vertices = np.array(data['vertices_3d'], dtype=np.float32)
