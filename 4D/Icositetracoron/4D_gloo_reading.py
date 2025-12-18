@@ -74,7 +74,7 @@ class Canvas(app.Canvas):
         self.program['view'] = self.view
         self.program['projection'] = self.projection
 
-        gloo.set_state(clear_color='black', depth_test=True)
+        gloo.set_state(clear_color=(0.07843, 0.07843, 0.07843, 1.0), depth_test=True)
         self.show()
         self.update()  #Forces the 1st on_draw
     
@@ -112,7 +112,7 @@ class Canvas(app.Canvas):
         #ZOOM
         elif event.text == 'i':  # zoom in 
             #self.camera_z += 1.0
-            self.camera_z = min(self.camera_z + 1.0, -3.0)  #NO MORE THAN -1
+            self.camera_z = min(self.camera_z + 1.0, -1.0)  #NO MORE THAN -1
         elif event.text == 'o':  # zoom out
             self.camera_z = max(self.camera_z - 1.0, -33.0)  #NOT LESS THAN -50
         

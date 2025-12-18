@@ -18,6 +18,7 @@ if image3 is None:
 else:
     print("Image loaded successfully!")
 
+
 # Display the image in a window
 cv2.imshow("Displayed Image1", image1)
 cv2.imshow("Displayed Image2", image2)

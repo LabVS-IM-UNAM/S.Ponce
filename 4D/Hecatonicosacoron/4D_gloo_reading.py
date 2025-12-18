@@ -5,7 +5,7 @@ import numpy as np
 import json
 
 # =================== READ DATA ===================
-with open('hecatonicosacoron_sage.json', 'r') as f:
+with open('120cell_perspective.json', 'r') as f:
     data = json.load(f)
 
 # ==================== SHADERS ====================
@@ -74,7 +74,7 @@ class Canvas(app.Canvas):
         self.program['view'] = self.view
         self.program['projection'] = self.projection
 
-        gloo.set_state(clear_color='black', depth_test=True)
+        gloo.set_state(clear_color=(0.07843, 0.07843, 0.07843, 1.0), depth_test=True)
         self.show()
         self.update()  #Forces the 1st on_draw
     
