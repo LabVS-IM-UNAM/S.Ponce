@@ -1,0 +1,50 @@
+Al analizar la voz digitalmente con el fin de utilizar sus características como parámetros reactivos; debemos dividir sus propiedades en 3 niveles: fundamentales, espectrales y textura/microvariaciones.
+
+
+[1] FUNDAMENTALES
+
+Parámetros más fáciles de extraer en tiempo real y los más intuitivos para mapear a otros valores (color, posición, tamaño, ...)
+
+	[1.1] Frecuencia Fundamental (F0 o Pitch)
+
+	Tono base de la voz humana. Indica si es grave o aguda. Rastrear el F0 digitalmente te permite ver la "melodía" o entonación en la que habla una persona.
+
+	[1.2] Amplitud (RMS o Volumen o Energía)
+	
+	Mide la intensidad de la señal en un momento dado. Perfecto para reaccionar a picos de señal o intensidad, como cuando una persona levanta la voz o remarca una palabra u oración.
+
+
+[2] ESPECTRALES
+
+Anatomía vocal, características únicas, te permite saber "quién" está hablando; requiere análisis del espectro e frecuencias.
+
+	[2.1] MFCCs (Coeficiente Cepstrales en las Frecuencias de Mel)
+	
+	Estándar dorado en el análisis de voz. Conjunto de 13 valores que modelan matemáticamente la forma del tracto vocal de esa persona en específico. Huella dactilar de la voz.
+	
+	[2.2] Formantes (F1, F2, F3, ...)
+	
+	Frecuencias de resonancia de tracto vocal. Se crean por la forma de la boca y la garganta; mientras que el tono (F0) lo dan las cuerdas vocales. Los primeros 3 formantes te dicen qué vocal está pronunciando la persona cada 	milisegundo.
+
+	[2.3] Centroide Espectral
+
+	Representa el "centro de gravedad" del espectro; mide el "brillo" de la voz. Una voz nasal o aguda tendrá un centroide más alto que una voz profunda u opaca.
+
+
+[3] TEXTURA Y MICROVARIACIONES
+
+Definen la aspereza, la respiración o la estabilidad de la voz. Ideales para medir el estado emocional o las peculiaridades físicas del hablante.
+
+	[3.1] Jitter
+	
+	Mide microvariaciones en el tono (frecuencia) de un ciclo de onda al siguiente. Una voz con mucho "jitter" sonará temblorosa o inestable.
+
+	[3.2] Shimmer
+	
+	Mide microvariaciones en la amplitud (volumen) de un ciclo de onda al siguiente. Afecta que tan rasposa se percibe la voz.
+
+	[3.3] HNR (Relación Armónico-Ruido)
+	
+	Compara la cantidad de energía acústica periódica (el sonido limpio de las cuerdas vocales) contra el ruido acústico (el aire escapando). Te dice si una voz es clara y limpia, o si es soplada y ronca.
+	
+	
