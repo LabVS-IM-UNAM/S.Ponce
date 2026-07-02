@@ -31,7 +31,7 @@
     * `4D_gloo_reading.py`
       Visualización local y programación reactiva utilizando Python Gloo.
 
-  * **Pruebas audios**
+  * **Pruebas audios:**
     Limpieza y procesamiento de audios para obtener información.
 
     * `texto_audacity_limpieza_regulación.txt`
@@ -40,7 +40,7 @@
     * `texto_análisis_voz.txt`
       Descripción de las propiedades de la voz.
 
-    * **analisis_voz**
+    * **analisis_voz:**
 
       * **audios_limpios**
         Archivos `.wav` limpios de ruido y regulados en volumen.
@@ -51,5 +51,5 @@
       * **resultados_csv**
         Tablas con todos los datos numéricos de la voz obtenidos por frame (60 FPS).
 
-  * **Touch Designer**
+  * **Touch Designer:**
     Documentos en formato `.toe`.
