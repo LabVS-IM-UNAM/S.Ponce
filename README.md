@@ -6,7 +6,7 @@
 * **4D**
   *Proyecto de sonorización CCD.*
 
-  * **Diseño Gráfico**
+  * **Diseño Gráfico:**
     Archivos utilizados, modificados y generados para la producción del material de presentación y difusión (`.pdf`).
 
   * **Hecatonicosacoron** *
@@ -19,7 +19,7 @@
 
   * **Pentacoro** *
 
-  * **Teseracto**
+  * **Teseracto:**
     Carpeta que contiene archivos elementales para generar la figura (igual que `*`).
 
     * `ext_proyectando_sage_sch.py`
